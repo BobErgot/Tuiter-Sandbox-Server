@@ -1,11 +1,26 @@
 import posts from "./tuits.js";
 let tuits = posts;
 
+export const currentUser = {
+    "userName": "Bobby", "handle": "bob", "avatar": "../../images/profile-image.svg",
+};
+
+const templateTuit = {
+    ...currentUser,
+    "topic": "Hot",
+    "time": "1 min",
+    "liked": false,
+    "replies": 0,
+    "retuits": 0,
+    "likes": 0,
+}
+
 const createTuit = (req, res) => {
-    const newTuit = req.body;
+    const newTuit = {
+        ...req.body,
+        ...templateTuit
+    };
     newTuit._id = (new Date()).getTime()+'';
-    newTuit.likes = 0;
-    newTuit.liked = false;
     tuits.push(newTuit);
     res.json(newTuit);
 }
